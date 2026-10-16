@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Quera Clock</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+    <link rel="stylesheet" href="">
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container site-header__inner">
+        <a href="" class="brand">Quera Clock</a>
+        <nav class="nav">
+          <button id="theme-toggle" type="button" class="theme-toggle" aria-label="Toggle theme">
+            <span class="theme-toggle__sun">Light</span>
+            <span class="theme-toggle__moon">Dark</span>
+          </button>
+          <a href="">Status</a>
+        </nav>
+      </div>
+    </header>
+    <main class="container page">
+      <!-- Render Django messages here. -->
+      <!-- Render page content here. -->
+    </main>
+    <script>
+      (function () {
+        var STORAGE_KEY = "quera-clock-theme";
+        var body = document.body;
+        var button = document.getElementById("theme-toggle");
+        var systemPrefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+        var saved = localStorage.getItem(STORAGE_KEY);
+        var initial = saved || (systemPrefersDark ? "dark" : "light");
+
+        var applyTheme = function (theme) {
+          body.classList.toggle("theme-dark", theme === "dark");
+          if (button) {
+            button.setAttribute("data-theme", theme);
+          }
+        };
+
+        applyTheme(initial);
+
+        if (button) {
+          button.addEventListener("click", function () {
+            var next = body.classList.contains("theme-dark") ? "light" : "dark";
+            localStorage.setItem(STORAGE_KEY, next);
+            applyTheme(next);
+          });
+        }
+      })();
+    </script>
+  </body>
+</html>
