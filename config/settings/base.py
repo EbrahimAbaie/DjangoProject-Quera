@@ -7,6 +7,7 @@ DEBUG = False
 ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
+    "unfold",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -21,6 +22,7 @@ INSTALLED_APPS = [
     "apps.projects",
     "apps.tags",
     "apps.time_entries",
+    "apps.contact_notes",
 ]
 
 MIDDLEWARE = [
@@ -77,3 +79,16 @@ MEDIA_ROOT = BASE_DIR / "media"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 AUTH_USER_MODEL = "users.User"
+
+LOGIN_URL = "users:login"
+LOGIN_REDIRECT_URL = "users:profile"
+LOGOUT_REDIRECT_URL = "workspaces:landing"
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = "bootstrap5"
+
+UNFOLD = {
+    "SITE_TITLE": "Quera Clock Admin",
+    "SITE_HEADER": "Quera Clock",
+    "SITE_SUBHEADER": "Time tracking administration",
+}

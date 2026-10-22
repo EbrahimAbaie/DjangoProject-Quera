@@ -17,7 +17,19 @@
             <span class="theme-toggle__sun">Light</span>
             <span class="theme-toggle__moon">Dark</span>
           </button>
+          <a href="{% url 'workspaces:about' %}">About</a>
           <a href="{% url 'workspaces:status' %}">Status</a>
+          {% if user.is_authenticated %}
+            <a href="{% url 'workspaces:dashboard' %}">Dashboard</a>
+            <a href="{% url 'users:profile' %}">Profile</a>
+            <form method="post" action="{% url 'users:logout' %}" class="nav-logout-form">
+              {% csrf_token %}
+              <button type="submit" class="nav-link-button">Logout</button>
+            </form>
+          {% else %}
+            <a href="{% url 'users:login' %}">Login</a>
+            <a href="{% url 'users:register' %}">Register</a>
+          {% endif %}
         </nav>
       </div>
     </header>

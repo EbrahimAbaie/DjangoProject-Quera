@@ -1,11 +1,12 @@
 from django.contrib import admin
+from unfold.admin import TabularInline
 
 from core.admins.base import SoftDeleteAdmin
 
 from .models import Workspace, WorkspaceMembership
 
 
-class WorkspaceMembershipInline(admin.TabularInline):
+class WorkspaceMembershipInline(TabularInline):
     model = WorkspaceMembership
     extra = 0
 
