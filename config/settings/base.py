@@ -17,6 +17,7 @@ INSTALLED_APPS = [
     "crispy_bootstrap5",
     "apps.users",
     "apps.workspaces",
+    "apps.clients",
 ]
 
 MIDDLEWARE = [
