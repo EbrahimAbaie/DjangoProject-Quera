@@ -19,6 +19,7 @@ INSTALLED_APPS = [
     "apps.workspaces",
     "apps.clients",
     "apps.projects",
+    "apps.tags",
 ]
 
 MIDDLEWARE = [
