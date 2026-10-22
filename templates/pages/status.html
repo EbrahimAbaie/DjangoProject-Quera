@@ -1,2 +1,38 @@
-{% extends 'base/app.html' %}
-{% block content %}{% endblock %}
+{% extends "base/app.html" %}
+
+{% block title %}Status | Quera Clock{% endblock %}
+
+{% block content %}
+  <section class="page-heading">
+    <p class="eyebrow">Project status</p>
+    <h1>Core data at a glance.</h1>
+    <p>Current active records stored by Quera Clock.</p>
+  </section>
+
+  <section class="grid grid-3">
+    <article class="panel stat-card">
+      <span>Workspaces</span>
+      <strong>{{ workspace_count }}</strong>
+    </article>
+    <article class="panel stat-card">
+      <span>Clients</span>
+      <strong>{{ client_count }}</strong>
+    </article>
+    <article class="panel stat-card">
+      <span>Projects</span>
+      <strong>{{ project_count }}</strong>
+    </article>
+    <article class="panel stat-card">
+      <span>Tags</span>
+      <strong>{{ tag_count }}</strong>
+    </article>
+    <article class="panel stat-card">
+      <span>Time entries</span>
+      <strong>{{ time_entry_count }}</strong>
+    </article>
+    <article class="panel stat-card">
+      <span>Running timers</span>
+      <strong>{{ running_timer_count }}</strong>
+    </article>
+  </section>
+{% endblock %}
