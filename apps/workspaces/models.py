@@ -2,6 +2,26 @@ from django.conf import settings
 from django.db import models
 
 from core.models import TimestampedModel
+from core.models.base import SoftDeleteManager, SoftDeleteQuerySet
+
+
+class WorkspaceQuerySet(SoftDeleteQuerySet):
+    def visible_to(self, user):
+        if not getattr(user, "is_authenticated", False):
+            return self.none()
+        return self.filter(
+            memberships__user=user,
+            memberships__is_active=True,
+            memberships__is_deleted=False,
+        ).distinct()
+
+
+class WorkspaceMembershipQuerySet(SoftDeleteQuerySet):
+    def enabled(self):
+        return self.active().filter(is_active=True)
+
+    def for_user(self, user):
+        return self.enabled().filter(user=user)
 
 
 class Workspace(TimestampedModel):
@@ -13,6 +33,9 @@ class Workspace(TimestampedModel):
         on_delete=models.CASCADE,
         related_name="owned_workspaces",
     )
+
+    objects = SoftDeleteManager.from_queryset(WorkspaceQuerySet)()
+    all_objects = WorkspaceQuerySet.as_manager()
 
     class Meta:
         ordering = ["name", "created_at"]
@@ -51,6 +74,9 @@ class WorkspaceMembership(TimestampedModel):
     )
     is_active = models.BooleanField(default=True)
     joined_at = models.DateTimeField(auto_now_add=True)
+
+    objects = SoftDeleteManager.from_queryset(WorkspaceMembershipQuerySet)()
+    all_objects = WorkspaceMembershipQuerySet.as_manager()
 
     class Meta:
         ordering = ["workspace__name", "user__mobile"]

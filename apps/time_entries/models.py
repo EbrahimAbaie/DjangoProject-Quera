@@ -13,6 +13,11 @@ from core.models.base import SoftDeleteManager, SoftDeleteQuerySet
 
 
 class TimeEntryQuerySet(SoftDeleteQuerySet):
+    def visible_to(self, user):
+        if not getattr(user, "is_authenticated", False):
+            return self.none()
+        return self.filter(user=user)
+
     def running(self):
         return self.filter(end_time__isnull=True)
 
