@@ -20,6 +20,7 @@ INSTALLED_APPS = [
     "apps.clients",
     "apps.projects",
     "apps.tags",
+    "apps.time_entries",
 ]
 
 MIDDLEWARE = [
